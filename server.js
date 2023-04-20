@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const hbs = require('express-handlebars');
 
 const app = express();
 
@@ -8,6 +9,15 @@ app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, `/views/${name}`));
   };
   next();
+});
+
+app.engine('hbs', hbs());
+app.set('view engine', 'hbs');
+
+app.use(express.static(path.join(__dirname, '/public')));
+
+app.get('/hello/:name', (req, res) => {
+  res.render('hello', { layout: false, name: req.params.name });
 });
 
 app.get('/', (req, res) => {
@@ -28,14 +38,6 @@ app.get('/info', (req, res) => {
 
 app.get('/history', (req, res) => {
   res.show('history.html');
-});
-
-app.get('/style.css', (req, res) => {
-  res.sendFile(path.join(__dirname, '/style.css'));
-});
-
-app.get('/test.png', (req, res) => {
-  res.sendFile(path.join(__dirname, 'test.png'));
 });
 
 app.use((req, res) => {
