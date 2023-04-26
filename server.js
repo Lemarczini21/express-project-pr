@@ -41,7 +41,7 @@ app.get('/info', (req, res) => {
 });
 
 app.get('/history', (req, res) => {
-  res.render('history', { layout: false });
+  res.render('history');
 });
 
 app.use((req, res) => {
