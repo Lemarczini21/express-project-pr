@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+app.post('/contact/send-message', (req, res) => {
+  res.json(req.body);
+});
+
 app.get('/hello/:name', (req, res) => {
   res.render('hello', { name: req.params.name });
 });
